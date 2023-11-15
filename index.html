@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phương trình bậc 2</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #6e6b8b;
+      
+    }
+
+    #quadratic-form {
+      text-align: center;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 50%;
+      margin-top: 15px;
+      font-size: 20px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+      background-color: rgb(232, 232, 136);
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="quadratic-form">
+    <h2>Giải phương trình bậc 2</h2>
+    <label for="a">Nhập hệ số a:</label>
+    <input type="number" id="a" placeholder="Nhập a" required>
+    <label for="b">Nhập hệ số b:</label>
+    <input type="number" id="b" placeholder="Nhập b" required>
+    <label for="c">Nhập hệ số c:</label>
+    <input type="number" id="c" placeholder="Nhập c" required>
+    <button onclick="solveQuadraticEquation()">Giải phương trình</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function solveQuadraticEquation() {
+      var a = parseFloat(document.getElementById('a').value);
+      var b = parseFloat(document.getElementById('b').value);
+      var c = parseFloat(document.getElementById('c').value);
+
+      var roots = solveQuadratic(a, b, c);
+      displayResult(roots);
+    }
+
+    function solveQuadratic(a, b, c) {
+      // Xử lý khi cả ba hệ số bằng 0
+      if (a === 0 && b === 0 && c === 0) {
+        return []; // Phương trình có vô số nghiệm
+      }
+
+      // Xử lý khi a bằng 0
+      if (a === 0) {
+        if (b !== 0) {
+          return [-c / b];
+        } else {
+          if (c === 0) {
+            return []; // Phương trình có vô số nghiệm
+          } else {
+            return []; // Phương trình vô nghiệm
+          }
+        }
+      } else {
+        // Tính delta
+        var delta = b * b - 4 * a * c;
+
+        if (delta > 0) {
+          var x1 = (-b + Math.sqrt(delta)) / (2 * a);
+          var x2 = (-b - Math.sqrt(delta)) / (2 * a);
+          return [x1, x2];
+        } else if (delta === 0) {
+          var x = -b / (2 * a);
+          return [x];
+        } else {
+          return []; // Phương trìndhd vô nghiệm
+        }
+      }
+    }
+
+    function displayResult(roots) {
+      var resultContainer = document.getElementById('result');
+
+      if (roots.length === 0) {
+        resultContainer.innerHTML = 'Phương trình có vô số nghiệm';
+      } else if (roots.length === 1) {
+        resultContainer.innerHTML = 'Phương trình có nghiệm duy nhất x = ' + roots[0];
+      } else {
+        resultContainer.innerHTML = 'Phương trình có hai nghiệm: x1 = ' + roots[0] + ', x2 = ' + roots[1];
+      }
+    }
+  </script>
+
+</body>
+</html>
